@@ -105,6 +105,7 @@ class DMV{
         myThread2[i].setDaemon(true);
         myThread2[j].start();
         }
+        System.out.println("Hello World");
 
     }
 
