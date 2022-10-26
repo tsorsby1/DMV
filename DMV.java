@@ -5,7 +5,7 @@ import java.util.Queue;
 
 class DMV{
 
-   
+    private static Semaphore info_num = new Semaphore(1, true);
     
     
     private static Semaphore cust_id = new Semaphore(1, true);
@@ -53,16 +53,14 @@ static int info_num_cnt;
        
         private int cust_id;
         private int info_num;
-        Customer(int cust_id, int info_num){
+        Customer(int cust_id){
             //Creating a customer_id
-            this.cust_id = cust_id;
-            this.info_num = info_num; 
-            
+            this.cust_id = cust_id;            
         }
         @Override
         public void run() {
             
-           System.out.println("Customer" + " " + cust_id + " enters waiting room");
+           System.out.println("Customer" + " " + cust_id + " enters DMV");
           
            //Customer waits for info_id
            try
@@ -190,9 +188,8 @@ static int info_num_cnt;
         // create multiple Customer threads
         for(i = 0; i < CUST_THREADS; ++i) 
         {
-       thr[i] = new Customer(i, j);
-           myThread[i] = new Thread(thr[i]);
-           myThread[i].setDaemon(true);
+           thr[i] = new Customer(i);
+           myThread[i]= new Thread(thr[i]);
            myThread[i].start();
         }
 
